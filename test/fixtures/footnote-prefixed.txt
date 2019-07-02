@@ -1,0 +1,38 @@
+.
+Here is a annotation reference,[^1] and another.[^longnote]
+
+[^1]: Here is the annotation.
+
+[^longnote]: Here's one with multiple blocks.
+
+    Subsequent paragraphs are indented to show that they
+belong to the previous annotation.
+
+        { some.code }
+
+    The whole paragraph can be indented, or just the first
+    line.  In this way, multi-paragraph annotations work like
+    multi-paragraph list items.
+
+This paragraph won't be part of the note, because it
+isn't indented.
+.
+<p>Here is a annotation reference,<sup class="annotation-ref"><a href="#an-test-doc-id-1" id="anref-test-doc-id-1">[1]</a></sup> and another.<sup class="annotation-ref"><a href="#an-test-doc-id-2" id="anref-test-doc-id-2">[2]</a></sup></p>
+<p>This paragraph won't be part of the note, because it
+isn't indented.</p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an-test-doc-id-1" class="annotation-item"><p>Here is the annotation. <a href="#anref-test-doc-id-1" class="annotation-backref">↩</a></p>
+</li>
+<li id="an-test-doc-id-2" class="annotation-item"><p>Here's one with multiple blocks.</p>
+<p>Subsequent paragraphs are indented to show that they
+belong to the previous annotation.</p>
+<pre><code>{ some.code }
+</code></pre>
+<p>The whole paragraph can be indented, or just the first
+line.  In this way, multi-paragraph annotations work like
+multi-paragraph list items. <a href="#anref-test-doc-id-2" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.

@@ -1,0 +1,14 @@
+Types
+.
+This[^1:tick].
+
+[^1]: blah
+.
+<p>This<sup class="annotation-ref"><a href="#an1" id="anref1" class="tick">[1]</a></sup>.</p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>blah <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.

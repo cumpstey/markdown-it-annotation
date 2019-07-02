@@ -1,0 +1,240 @@
+
+Pandoc example:
+.
+Here is an annotation reference[^1], and another[^longnote].
+
+[^1]: Here is the annotation.
+
+[^longnote]: Here's one with multiple blocks.
+
+    Subsequent paragraphs are indented to show that they
+belong to the previous annotation.
+
+        { some.code }
+
+    The whole paragraph can be indented, or just the first
+    line. In this way, multi-paragraph annotations work like
+    multi-paragraph list items.
+
+This paragraph won't be part of the annotation, because it
+isn't indented.
+.
+<p>Here is an annotation reference<sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup>, and another<sup class="annotation-ref"><a href="#an2" id="anref2">[2]</a></sup>.</p>
+<p>This paragraph won't be part of the annotation, because it
+isn't indented.</p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>Here is the annotation. <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+<li id="an2" class="annotation-item"><p>Here's one with multiple blocks.</p>
+<p>Subsequent paragraphs are indented to show that they
+belong to the previous annotation.</p>
+<pre><code>{ some.code }
+</code></pre>
+<p>The whole paragraph can be indented, or just the first
+line. In this way, multi-paragraph annotations work like
+multi-paragraph list items. <a href="#anref2" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+
+They could terminate each other:
+
+.
+[^1][^2][^3]
+
+[^1]: foo
+[^2]: bar
+[^3]: baz
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup><sup class="annotation-ref"><a href="#an2" id="anref2">[2]</a></sup><sup class="annotation-ref"><a href="#an3" id="anref3">[3]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>foo <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+<li id="an2" class="annotation-item"><p>bar <a href="#anref2" class="annotation-backref">↩</a></p>
+</li>
+<li id="an3" class="annotation-item"><p>baz <a href="#anref3" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+They could be inside blockquotes, and are lazy:
+.
+[^foo]
+
+> [^foo]: bar
+baz
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup></p>
+<blockquote></blockquote>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>bar
+baz <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+Their labels could not contain spaces or newlines:
+
+.
+[^ foo]: bar baz
+
+[^foo
+]: bar baz
+.
+<p>[^ foo]: bar baz</p>
+<p>[^foo
+]: bar baz</p>
+.
+
+
+We support inline notes too (pandoc example):
+
+.
+Here is an inline note.^[Inlines notes are easier to write, since
+you don't have to pick an identifier and move down to type the
+note.]
+.
+<p>Here is an inline note.<sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>Inlines notes are easier to write, since
+you don't have to pick an identifier and move down to type the
+note. <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+They could have arbitrary markup:
+
+.
+foo^[ *bar* ]
+.
+<p>foo<sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p> <em>bar</em>  <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+Duplicate annotations:
+.
+[^xxxxx] [^xxxxx]
+
+[^xxxxx]: foo
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup> <sup class="annotation-ref"><a href="#an1" id="anref1:1">[1:1]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>foo <a href="#anref1" class="annotation-backref">↩︎</a> <a href="#anref1:1" class="annotation-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+Indents:
+
+.
+[^xxxxx] [^yyyyy]
+
+[^xxxxx]: foo
+    ---
+
+[^yyyyy]: foo
+   ---
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup> <sup class="annotation-ref"><a href="#an2" id="anref2">[2]</a></sup></p>
+<hr>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><h2>foo</h2>
+ <a href="#anref1" class="annotation-backref">↩</a></li>
+<li id="an2" class="annotation-item"><p>foo <a href="#anref2" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+Indents for the first line:
+
+.
+[^xxxxx] [^yyyyy]
+
+[^xxxxx]:       foo
+
+[^yyyyy]:        foo
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup> <sup class="annotation-ref"><a href="#an2" id="anref2">[2]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>foo <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+<li id="an2" class="annotation-item"><pre><code>foo
+</code></pre>
+ <a href="#anref2" class="annotation-backref">↩</a></li>
+</ol>
+</section>
+.
+
+Indents for the first line (tabs):
+.
+[^xxxxx]
+
+[^xxxxx]:		foo
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>foo <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+Security 1
+.
+[^__proto__]
+
+[^__proto__]: blah
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>blah <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.
+
+
+Security 2
+.
+[^hasOwnProperty]
+
+[^hasOwnProperty]: blah
+.
+<p><sup class="annotation-ref"><a href="#an1" id="anref1">[1]</a></sup></p>
+<section class="annotations">
+<ol class="annotation-list">
+<li id="an1" class="annotation-item"><p>blah <a href="#anref1" class="annotation-backref">↩</a></p>
+</li>
+</ol>
+</section>
+.

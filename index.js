@@ -1,9 +1,7 @@
 // Process annotations
-//
 'use strict';
 
-////////////////////////////////////////////////////////////////////////////////
-// Renderer partials
+//#region Renderer partials
 
 function render_annotation_anchor_name(tokens, idx, options, env/*, slf*/) {
   var n = Number(tokens[idx].meta.id + 1).toString();
@@ -74,6 +72,7 @@ function render_annotation_anchor(tokens, idx, options, env, slf) {
   return ' <a href="#anref' + id + '" class="annotation-backref">\u21a9\uFE0E</a>';
 }
 
+//#endregion
 
 module.exports = function annotation_plugin(md) {
   var parseLinkLabel = md.helpers.parseLinkLabel,
